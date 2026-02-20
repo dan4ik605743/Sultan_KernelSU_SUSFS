@@ -97,13 +97,14 @@ jobs:
           cp ../kernel_patches/sultan/sys.c_fix.patch ./
           patch -p1 < sys.c_fix.patch
 
-          # patch this file with sed
+          # This patch already patched up
+          
           #cp ../kernel_patches/wild/susfs_fix_patches/v${SUSFS_VERSION}/a14-6.1/base.c.patch ./
           #patch -p1 < base.c.patch
 
-          sed -i '/#include <linux\/dma-buf.h>/a #ifdef CONFIG_KSU_SUSFS_SUS_MAP\n#include <linux/susfs_def.h>\n#endif' fs/proc/base.c
+          #sed -i '/#include <linux\/dma-buf.h>/a #ifdef CONFIG_KSU_SUSFS_SUS_MAP\n#include <linux/susfs_def.h>\n#endif' fs/proc/base.c
     
-          echo "=== Result after base.c.patch ==="
+          echo "=== base.c ==="
           grep -A5 -B5 "susfs_def" fs/proc/base.c || echo "SUSFS header not added"
 
       - name: Add KernelSU
